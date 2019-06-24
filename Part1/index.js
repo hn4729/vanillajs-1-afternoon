@@ -9,10 +9,12 @@ function play(clickedId) {
         playerSpan.innerText = "O";
         clickedElement.innerText = "X";
         board[clickedId] = "X";
+        document.getElementById(clickedId).removeAttribute("onclick");
     } else {
         playerSpan.innerText = "X";
         clickedElement.innerText = "O"
         board[clickedId] = "O";
+        document.getElementById(clickedId).removeAttribute("onclick");
     }
     
     console.log(board);
@@ -55,6 +57,22 @@ function play(clickedId) {
 
     if (fullBoard.length === 9 && win === 0) {
         window.alert("Cat's game, there is no winner");
+        reset();
+    }
+
+    //Reset after win
+    if (win === 1) {
+        reset();
     }
     
+}
+
+function reset() {
+    board = [];
+    document.getElementById('player').innerText = "X";
+
+    for (let i = 0; i < 9; i++) {
+        document.getElementById(i).innerText = "";
+        document.getElementById(i).setAttribute("onclick", `play(${i})`);
+    }
 }
